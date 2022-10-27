@@ -1,9 +1,9 @@
 class EuclidController < ApplicationController
   def index
-    @first_num = params[:input_1]
-    @second_num = params[:input_2]
   end
 
   def result
+    @first_num = params[:input_1].to_i
+    @second_num = params[:input_2].to_i
   end
 end

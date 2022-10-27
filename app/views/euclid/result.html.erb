@@ -1,10 +1,19 @@
 <table>
   <% i = 1 %>
-` <% while min(@second_num, @first_num) != 0  do%>
+  <h2><%="First num is #{@first_num}" %></h2>
+  <% while [@first_num, @second_num].min != 0  do%>
+    <% if @first_num < @second_num %>
+      <% @second_num %= @first_num %>
+    <% else %>
+        <% @first_num %= @second_num %>
+    <% end %>
+
     <tr>
-      <td><%= i %></td>
-      <td><%=  %></td>
-      <td></td>
+      <th><%= i %></th>
+      <td><%= @first_num %></td>
+      <td><%= @second_num  %></td>
     </tr>
+
+    <% i += 1 %>
   <% end %>
 </table>

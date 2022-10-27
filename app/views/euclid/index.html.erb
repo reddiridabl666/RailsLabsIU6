@@ -1,13 +1,13 @@
-<%= form_tag("/euclid/result", :method => "get") do %>
-  <div>
-    <%= label_tag("Value 1:") %>
-    <%= text_field_tag(:input_1) %>
+<%= form_with class: 'form', url: "/euclid/result", method: :get do |form| %>
+  <div class="form-group">
+    <%= form.label :input_1, "Value 1:" %>
+    <%= form.number_field :input_1, class: "form-control"%>
   </div>
 
-  <div>
-    <%= label_tag("Value 2:") %>
-    <%= text_field_tag(:input_2) %>
+  <div class="form-group">
+    <%= form.label :input_2, "Value 2:" %>
+    <%= form.number_field :input_2 %>
   </div>
 
-    <%= submit_tag("Calculate greatest common denominator") %>
+    <%= form.submit "Calculate greatest common denominator" %>
 <% end %>
