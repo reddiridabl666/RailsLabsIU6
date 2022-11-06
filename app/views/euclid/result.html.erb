@@ -1,4 +1,4 @@
-<div class="col-md-8 col-lg-4">
+<div class="col-md-8 col-lg-4 m-auto">
   <table class="table">
     <tr>
       <th>Step</th>
@@ -6,37 +6,32 @@
       <th>rhs</th>
     </tr>
 
-    <% i = 0 %>
-    <% while [@first_res, @second_res].min != 0  do%>
+    <tr>
+      <td>Initial</td>
+      <td><%= @first_num %></td>
+      <td><%= @second_num  %></td>
+    </tr>
+
+    <% @results.each do |ind, first, second| %>
       <tr>
-        <td><%= i == 0 ? 'Initial' : i %></td>
-        <td><%= @first_res %></td>
-        <td><%= @second_res  %></td>
+        <td><%= ind %></td>
+        <td><%= first %></td>
+        <td><%= second  %></td>
       </tr>
-
-      <% if @first_res < @second_res %>
-        <% @second_res -= @first_res %>
-      <% else %>
-        <% @first_res -= @second_res %>
-      <% end %>
-
-      <% i += 1 %>
     <% end %>
 
     <% gcd = [@first_res, @second_res].max  %>
+    <tr>
+      <th> Operation </th>
+      <th>Greatest common denominator</th>
+      <th>Least common multiple</th>
+    </tr>
 
-<!--    <tr>-->
-<!--      <td colspan="2">Greatest common denominator</td>-->
-<!--      <td><%#= gcd %></td>-->
-<!--    </tr>-->
-
-<!--    <tr>-->
-<!--      <td colspan="2">Least common multiple</td>-->
-<!--      <td><%#= @first_num * @second_num / gcd %></td>-->
-<!--    </tr>-->
+    <tr>
+      <th>Result</th>
+      <td><%= gcd %></td>
+      <td><%= @first_num * @second_num / gcd %></td>
+    </tr>
   </table>
-
-  <h5>The <strong>greatest common denominator</strong> of <%= @first_num %> and <%= @second_num %> is <strong><%= gcd %></strong></h5>
-
-  <h5> The <strong>least common multiple</strong> of <%= @first_num %> and <%= @second_num %> is <strong><%= @first_num * @second_num / gcd%></strong></h5>
+  <h4><%= link_to "Go back", "/", class: "link" %></h4>
 </div>
