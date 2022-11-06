@@ -20,7 +20,6 @@
       </tr>
     <% end %>
 
-    <% gcd = [@first_res, @second_res].max  %>
     <tr>
       <th> Operation </th>
       <th>Greatest common denominator</th>
@@ -29,8 +28,8 @@
 
     <tr>
       <th>Result</th>
-      <td><%= gcd %></td>
-      <td><%= @first_num * @second_num / gcd %></td>
+      <td><%= @gcd %></td>
+      <td><%= @lcm %></td>
     </tr>
   </table>
   <h4><%= link_to "Go back", "/", class: "link" %></h4>
