@@ -35,5 +35,6 @@ storage
 /config/local_env.yml
 
 *pdf
+Gemfile.lock
 
 .idea
