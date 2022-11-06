@@ -1,6 +1,5 @@
-document.body.innerHTML = "<%= j render partial: "result" %>";
-
 let tr, ind, first, second;
+
 
 <% @results.each do |ind, first, second| %>
   tr = document.body.appendChild(document.createElement("tr"));
