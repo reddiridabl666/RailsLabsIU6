@@ -28,5 +28,10 @@ class EuclidController < ApplicationController
         end
       end
     end.take_while { |_, first, second | [first, second].min != 0 }
+
+    respond_to do |format|
+      format.js
+      # format.html
+    end
   end
 end

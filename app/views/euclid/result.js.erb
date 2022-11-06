@@ -1,0 +1,16 @@
+//document.body.addEventListener("ajax:success", (event) => {
+
+//});
+
+<% @results.each do |ind, first, second| %>
+  let tr = document.body.appendChild(document.createElement("tr"));
+
+  let ind = tr.appendChild(document.createElement("td"));
+  ind.textContent = <%= ind %>;
+
+  let first = tr.appendChild(document.createElement("td"));
+  first.textContent = <%= first %>;
+
+  let second = tr.appendChild(document.createElement("td"));
+  second.textContent = <%= second %>;
+<% end %>
