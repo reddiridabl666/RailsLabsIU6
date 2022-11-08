@@ -4,16 +4,16 @@
   <% end %>
 
 <div class="form-group row my-3">
-        <%=  form.label :input_1, "Value 1:", class: "col-md-2 col-lg-1 col-form-label"  %>
+    <%=  form.label :input_1, "Value 1:", class: "col-md-2 col-lg-1 col-form-label"  %>
   <div class="col-md-10 col-lg-6">
-    <%=  form.number_field :input_1, min: 1, class: "form-control" %>
+    <%=  form.number_field :input_1, min: 1, value: "45", class: "form-control" %>
   </div>
 </div>
 
 <div class="form-group row mb-3">
   <%=  form.label :input_2, "Value 2:", class: "col-md-2 col-lg-1 col-form-label"  %>
   <div class="col-md-10 col-lg-6">
-    <%=  form.number_field :input_2, min: 1, class: "form-control" %>
+    <%=  form.number_field :input_2, min: 1, value: "35", class: "form-control" %>
   </div>
 </div>
 
