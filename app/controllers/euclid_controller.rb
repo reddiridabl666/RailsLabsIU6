@@ -19,22 +19,22 @@ class EuclidController < ApplicationController
 
   def euclid_logic
     results = euclid_enumerator(@first_num, @second_num)
-              .take_while { |_, first, second| [first, second].min != 0 }
+              .each_with_index
+              .take_while {|res, _| [res[0], res[1]].min != 0 }
 
-    gcd = results.blank? ? @first_num : results[-1][1..].max
+    gcd = results.blank? ? @first_num : results[-1][0].max
     lcm = @first_num * @second_num / gcd
 
     [results, gcd, lcm]
   end
 
   def euclid_enumerator(first, second)
-    iter = 0
     Enumerator.new do |yielder|
       loop do
         yielder << if first < second
-                     [iter += 1, first, second -= first]
+                     [first, second -= first]
                    else
-                     [iter += 1, first -= second, second]
+                     [first -= second, second]
                    end
       end
     end
