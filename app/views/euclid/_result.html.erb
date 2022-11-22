@@ -1,0 +1,35 @@
+<div id="result">
+  <table class="table">
+    <tr>
+      <th>Iteration</th>
+      <th>First number</th>
+      <th>Second number</th>
+    </tr>
+
+    <tr>
+      <th>Initial</th>
+      <th><%= @first_num %></th>
+      <th><%= @second_num %></th>
+    </tr>
+
+    <% @results.each do |index, first, second| %>
+      <tr>
+        <td><%= index %></td>
+        <td><%= first %></td>
+        <td><%= second %></td>
+      </tr>
+    <% end %>
+
+    <tr>
+      <th>Operation</th>
+      <th>Greatest common denominator</th>
+      <th>Least common Multiple</th>
+    </tr>
+
+    <tr>
+      <th>Result</th>
+      <th><%= @gcd %></th>
+      <th><%= @lcm %></th>
+    </tr>
+  </table>
+</div>

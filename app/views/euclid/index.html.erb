@@ -1,34 +1,30 @@
-<%#= form_with url: "/euclid/index.json", id: "form", local: false, class: "col-8 m-auto" do |form| %>
-<%= form_tag "/euclid/index.json", method: "post", remote: true, id: 'form', class: "col-8 m-auto" do %>
-  <% unless flash.blank? %>
-    <p class="text-danger mt-2"><%= flash.alert %></p>
-  <% end %>
-
-  <div class="form-group row my-3">
-    <%#=  form.label :input_1, "Value 1:", class: "col-md-2 col-lg-1 col-form-label"  %>
-    <%=  label_tag 'input_1', "Value 1:", class: "col-md-2 col-lg-1 col-form-label"  %>
-    <div class="col-md-10 col-lg-6">
-      <%#=  form.number_field :input_1, min: 1, class: "form-control", value: "35" %>
-      <%=  number_field_tag 'input_1',  value="35", min: 1, class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group row mb-3">
-    <%#=  form.label :input_2, "Value 2:", class: "col-md-2 col-lg-1 col-form-label"  %>
-    <%=  label_tag 'input_2', "Value 2:", class:"col-md-2 col-lg-1 col-form-label"  %>
-    <div class="col-md-10 col-lg-6">
-      <%#=  form.number_field :input_2, min: 1, class: "form-control", value: "45" %>
-      <%=  number_field_tag 'input_2',  value="45", min: 1, class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group row mb-3">
-    <div class="col-md-2 col-lg-1"></div>
-    <div class="col-md-7 col-lg-5">
-      <%#=  form.submit "Calculate greatest common denominator", class: 'btn btn-outline-primary' %>
-      <%=  submit_tag "Calculate greatest common denominator", class: 'btn btn-outline-primary' %>
-    </div>
-  </div>
+<% flash.each do |_type, msg| %>
+  <p class="text-danger mt-2"><%= msg %></p>
 <% end %>
 
-<%= javascript_include_tag "index" %>
+<div class="col-8 m-auto">
+  <%= form_with url: result_path, id: "form" do |form| %>
+    <div class="form-group row my-3">
+      <%=  form.label :input_1, "Value 1:", class: "col-md-2 col-lg-1 col-form-label"  %>
+      <div class="col-md-10 col-lg-6">
+        <%=  form.number_field :input_1, class: "form-control", value: "35" %>
+      </div>
+    </div>
+
+    <div class="form-group row mb-3">
+      <%=  form.label :input_2, "Value 2:", class: "col-md-2 col-lg-1 col-form-label"  %>
+      <div class="col-md-10 col-lg-6">
+        <%=  form.number_field :input_2, min: 1, class: "form-control", value: "45" %>
+      </div>
+    </div>
+
+    <div class="form-group row mb-3">
+      <div class="col-md-2 col-lg-1"></div>
+      <div class="col-md-7 col-lg-5">
+        <%=  form.submit "Calculate greatest common denominator", class: 'btn btn-outline-primary' %>
+      </div>
+    </div>
+  <% end %>
+
+  <div id="result"></div>
+</div>

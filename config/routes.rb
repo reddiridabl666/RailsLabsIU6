@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'euclid/index'
-  post 'euclid/index'
-
+  post 'result', to: "euclid#result"
   root "euclid#index"
 end

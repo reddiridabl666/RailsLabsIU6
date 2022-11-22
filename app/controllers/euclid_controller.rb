@@ -1,9 +1,16 @@
 class EuclidController < ApplicationController
-  # protect_from_forgery except: :index
-  def valid(input)
-    return false if input.to_i == 0
-    /\A\d+\Z/.match?(input)
+  before_action :validate_input, only: :result
+
+  def index; end
+
+  def result
+    @first_num = params[:input_1].to_i
+    @second_num = params[:input_2].to_i
+
+    @results, @gcd, @lcm = euclid_algorithm
   end
+
+  private
 
   def euclid_algorithm
     first_res = @first_num
@@ -26,21 +33,14 @@ class EuclidController < ApplicationController
     [results, gcd, lcm]
   end
 
-  def index
-    if request.method == "POST"
-      unless valid(params[:input_1]) && valid(params[:input_2])
-        flash.alert = "You should enter a natural number in each field"
-      end
-
-      @first_num = params[:input_1].to_i
-      @second_num = params[:input_2].to_i
-
-      @results, @gcd, @lcm = euclid_algorithm
-
-      respond_to do |format|
-        format.json { render json: { results: @results } }
-        format.html
-      end
+  def validate_input
+    unless valid(params[:input_1]) && valid(params[:input_2])
+      redirect_to root_path, alert: "You should enter a natural number in each field"
     end
+  end
+
+  def valid(input)
+    return false if input.to_i == 0
+    /\A\d+\Z/.match?(input)
   end
 end
