@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# main controller
 class EuclidController < ApplicationController
   before_action :validate_input, only: :result
 
@@ -13,24 +16,26 @@ class EuclidController < ApplicationController
   private
 
   def euclid_algorithm
-    first_res = @first_num
-    second_res = @second_num
+    results = euclid_enumerator(@first_num, @second_num)
+                .each_with_index
+                .take_while {|res, _| [res[0], res[1]].min != 0 }
 
-    iter = 0
-    results = Enumerator.new do |yielder|
-      loop do
-        if first_res < second_res
-          yielder << [iter += 1, first_res, second_res -= first_res]
-        else
-          yielder << [iter += 1, first_res -= second_res, second_res]
-        end
-      end
-    end.take_while { |_, first, second | [first, second].min != 0 }
-
-    gcd = [first_res, second_res].max
+    gcd = results.blank? ? @first_num : results[-1][0].max
     lcm = @first_num * @second_num / gcd
 
     [results, gcd, lcm]
+  end
+
+  def euclid_enumerator(first, second)
+    Enumerator.new do |yielder|
+      loop do
+        yielder << if first < second
+                     [first, second -= first]
+                   else
+                     [first -= second, second]
+                   end
+      end
+    end
   end
 
   def validate_input
