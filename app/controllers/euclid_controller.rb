@@ -1,35 +1,48 @@
+# frozen_string_literal: true
+
+# main controller
 class EuclidController < ApplicationController
-  def index
+  def index; end
+
+  def result
+    unless valid(params[:input1]) && valid(params[:input2])
+      return redirect_to root_path, alert: 'You should enter a natural number in each field'
+    end
+
+    @first_num = params[:input1].to_i
+    @second_num = params[:input2].to_i
+
+    @results, @gcd, @lcm = euclid_logic
+  end
+
+  private
+
+  def euclid_logic
+    results = euclid_enumerator(@first_num, @second_num)
+              .take_while { |_, first, second| [first, second].min != 0 }
+
+    gcd = results.blank? ? @first_num : results[-1][1..].max
+    lcm = @first_num * @second_num / gcd
+
+    [results, gcd, lcm]
+  end
+
+  def euclid_enumerator(first, second)
+    iter = 0
+    Enumerator.new do |yielder|
+      loop do
+        yielder << if first < second
+                     [iter += 1, first, second -= first]
+                   else
+                     [iter += 1, first -= second, second]
+                   end
+      end
+    end
   end
 
   def valid(input)
-    return false if input.to_i == 0
+    return false if input.to_i.zero?
+
     /\A\d+\Z/.match?(input)
-  end
-
-  def result
-    unless valid(params[:input_1]) && valid(params[:input_2])
-      return redirect_to "/", alert: "You should enter a natural number in each field"
-    end
-
-    @first_num = params[:input_1].to_i
-    @second_num = params[:input_2].to_i
-
-    first_res = @first_num
-    second_res = @second_num
-
-    iter = 0
-    @results = Enumerator.new do |yielder|
-      loop do
-        if first_res < second_res
-          yielder << [iter += 1, first_res, second_res -= first_res]
-        else
-          yielder << [iter += 1, first_res -= second_res, second_res]
-        end
-      end
-    end.take_while { |_, first, second | [first, second].min != 0 }
-
-    @gcd = [first_res, second_res].max
-    @lcm = @first_num * @second_num / @gcd
   end
 end
