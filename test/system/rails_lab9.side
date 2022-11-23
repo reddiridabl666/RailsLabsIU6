@@ -1,0 +1,127 @@
+{
+  "id": "4a85e5a4-713b-4721-a98b-dffc568cc356",
+  "version": "2.0",
+  "name": "rails_lab9",
+  "url": "http://127.0.0.1:3000/",
+  "tests": [{
+    "id": "ccf2f79a-c45d-4018-a62d-319ad7ad307a",
+    "name": "Untitled",
+    "commands": []
+  }, {
+    "id": "83d7cef2-adfd-45c1-8f81-6ea26f49d742",
+    "name": "basic",
+    "commands": [{
+      "id": "50fcf08d-aa87-41cf-96c3-e732698644f6",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:3000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ead67627-0f36-4abd-8a18-390c37c86856",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "960x1158",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5cb696f4-07a2-4d57-9897-4196e9f8f66c",
+      "comment": "",
+      "command": "click",
+      "target": "id=input_1",
+      "targets": [
+        ["id=input_1", "id"],
+        ["name=input_1", "name"],
+        ["css=#input_1", "css:finder"],
+        ["xpath=//input[@id='input_1']", "xpath:attributes"],
+        ["xpath=//form[@id='form']/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b3969532-2b2c-4330-8b73-6a655fc6ba62",
+      "comment": "",
+      "command": "type",
+      "target": "id=input_1",
+      "targets": [
+        ["id=input_1", "id"],
+        ["name=input_1", "name"],
+        ["css=#input_1", "css:finder"],
+        ["xpath=//input[@id='input_1']", "xpath:attributes"],
+        ["xpath=//form[@id='form']/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "30"
+    }, {
+      "id": "8ee343b7-54da-4354-be93-8967691aa66d",
+      "comment": "",
+      "command": "click",
+      "target": "id=input_2",
+      "targets": [
+        ["id=input_2", "id"],
+        ["name=input_2", "name"],
+        ["css=#input_2", "css:finder"],
+        ["xpath=//input[@id='input_2']", "xpath:attributes"],
+        ["xpath=//form[@id='form']/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "770dc4ee-9d71-4832-81b7-9bca5a0ee3e1",
+      "comment": "",
+      "command": "type",
+      "target": "id=input_2",
+      "targets": [
+        ["id=input_2", "id"],
+        ["name=input_2", "name"],
+        ["css=#input_2", "css:finder"],
+        ["xpath=//input[@id='input_2']", "xpath:attributes"],
+        ["xpath=//form[@id='form']/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": "20"
+    }, {
+      "id": "d4a4c9e7-70f6-4b11-9408-bf297e6871f6",
+      "comment": "",
+      "command": "click",
+      "target": "name=commit",
+      "targets": [
+        ["name=commit", "name"],
+        ["css=.btn", "css:finder"],
+        ["xpath=//input[@name='commit']", "xpath:attributes"],
+        ["xpath=//form[@id='form']/div[3]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e4243f30-4af6-4031-ae44-7c459c76a852",
+      "comment": "Check if greatest common multiple is present",
+      "command": "assertElementPresent",
+      "target": "css=div#result table tr th",
+      "targets": [],
+      "value": "10"
+    }, {
+      "id": "889338ab-2d3c-48a9-bf48-abd65f31b6a5",
+      "comment": "Check if least common multiple is printed",
+      "command": "assertElementPresent",
+      "target": "css=div#result table tr th",
+      "targets": [
+        ["css=tr:nth-child(6) > th:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='result']/table/tbody/tr[6]/th[3]", "xpath:idRelative"],
+        ["xpath=//tr[6]/th[3]", "xpath:position"],
+        ["xpath=//th[contains(.,'60')]", "xpath:innerText"]
+      ],
+      "value": "60"
+    }]
+  }],
+  "suites": [{
+    "id": "6584fd74-e314-4b29-87a5-d9ebdaf4f885",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["ccf2f79a-c45d-4018-a62d-319ad7ad307a"]
+  }],
+  "urls": ["http://127.0.0.1:3000/"],
+  "plugins": []
+}
