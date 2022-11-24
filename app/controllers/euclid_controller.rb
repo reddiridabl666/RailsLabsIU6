@@ -10,7 +10,7 @@ class EuclidController < ApplicationController
     @first_num = params[:input_1].to_i
     @second_num = params[:input_2].to_i
 
-    @results, @gcd, @lcm = EuclidResult.get(@first_num, @second_num)
+    @steps, @gcd, @lcm = EuclidResult.get(@first_num, @second_num)
   end
 
   private

@@ -1,13 +1,23 @@
 class EuclidResult < ApplicationRecord
   validates :first, uniqueness: { scope: :second }
+  validates :first, :second, :gcd, :lcm, presence: true
+  validate :unique_pair, on: :create
+
   has_many :euclid_steps
 
   def self.get(first, second)
-    result = self.find_by(first: first, second: second)
-    result = self.find_by(first: second, second: first) if result.blank?
-    return [result.euclid_steps.all, result.gcd, result.lcm] unless result.blank?
+    result = find_by(first: first, second: second)
+    result = find_by(first: second, second: first) if result.blank?
+    return [result.euclid_steps.all.order(:step), result.gcd, result.lcm] unless result.blank?
 
     generate_result(first, second)
+  end
+
+  private
+
+  def unique_pair
+    errors.add(:already_calculated, 'results for such numbers') unless
+      EuclidResult.find_by(first: second, second: first).nil?
   end
 
   def self.generate_result(first, second)
@@ -15,14 +25,13 @@ class EuclidResult < ApplicationRecord
 
     res = self.create(first: first, second: second, gcd: gcd, lcm: lcm)
 
-    # p steps
-
-    steps.each do |arr, index|
-      EuclidStep.create(euclid_result_id: res.id, step: index,
-                        first: arr[0], second: arr[1])
+    step_objects = steps.reduce([]) do |sum, step|
+      step_res, index = step
+      sum.push(EuclidStep.create(euclid_result_id: res.id, step: index,
+                                 first: step_res[0], second: step_res[1]))
     end
 
-    [steps, gcd, lcm]
+    [step_objects, gcd, lcm]
   end
 
   def self.euclid_algorithm(first, second)

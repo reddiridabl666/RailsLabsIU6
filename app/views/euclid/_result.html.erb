@@ -12,18 +12,18 @@
       <th><%= @second_num %></th>
     </tr>
 
-    <% @results.each do |res, index| %>
+    <% @steps.each do |step| %>
       <tr>
-        <td><%= index %></td>
-        <td><%= res[0] %></td>
-        <td><%= res[1] %></td>
+        <td><%= step.step %></td>
+        <td><%= step.first %></td>
+        <td><%= step.second %></td>
       </tr>
     <% end %>
 
     <tr>
       <th>Operation</th>
       <th>Greatest common denominator</th>
-      <th>Least common Multiple</th>
+      <th>Least common multiple</th>
     </tr>
 
     <tr>
