@@ -1,16 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe "Euclids", type: :request do
-  describe "GET /result" do
-    it "assigns gcd and lam" do
-      post result_path, params: { input1: '36', input2: '48' }
-
-      expected_gcd = 12
-      expected_lcm = 144
-
-      # expect(assigns(:gcd)).to eq(expected_gcd)
-      # expect(assigns(:lcm)).to eq(expected_lcm)
-    end
+  describe "POST /result" do
+  #   it "assigns gcd and lam" do
+  #     post result_path, params: { input1: '36', input2: '48' }
+  #
+  #     expected_gcd = 12
+  #     expected_lcm = 144
+  #
+  #     expect(assigns(:gcd)).to eq(expected_gcd)
+  #     expect(assigns(:lcm)).to eq(expected_lcm)
+  #   end
 
     it "redirects on invalid query" do
       post result_path, params: { input1: 'gdgd', input2: '48' }

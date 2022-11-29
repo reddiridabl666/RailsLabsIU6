@@ -6,11 +6,18 @@ class EuclidController < ApplicationController
 
   def index; end
 
+  def get_xml_db
+    respond_to do |format|
+      format.xml { render xml: EuclidResult.all.map(&:to_xml) }
+    end
+  end
+
   def result
     @first_num = params[:input_1].to_i
     @second_num = params[:input_2].to_i
 
-    @steps, @gcd, @lcm = EuclidResult.get(@first_num, @second_num)
+    # @steps, @gcd, @lcm = EuclidResult.get(@first_num, @second_num)
+    @steps, @gcd, @lcm = ActiveSupport::JSON.decode(EuclidResult.get_json(@first_num, @second_num)).values
   end
 
   private

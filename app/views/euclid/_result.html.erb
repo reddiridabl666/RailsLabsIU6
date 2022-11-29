@@ -14,9 +14,9 @@
 
     <% @steps.each do |step| %>
       <tr>
-        <td><%= step.step %></td>
-        <td><%= step.first %></td>
-        <td><%= step.second %></td>
+        <td><%= step['step'] + 1 %></td>
+        <td><%= step['first'] %></td>
+        <td><%= step['second'] %></td>
       </tr>
     <% end %>
 

@@ -13,6 +13,29 @@ class EuclidResult < ApplicationRecord
     generate_result(first, second)
   end
 
+  def self.get_json(first, second)
+    response_to_json(*self.get(first, second))
+  end
+
+  def to_xml
+    Nokogiri::XML::Builder.new do |xml|
+      xml.result {
+        xml.id id
+        xml.gcd gcd
+        xml.lcm lcm
+        xml.steps {
+          euclid_steps.all.each do |step|
+            xml.step {
+              xml.id step.id
+              xml.first step.first
+              xml.second step.second
+            }
+          end
+        }
+      }
+    end.doc.root.to_xml
+  end
+
   private
 
   def unique_pair
@@ -57,5 +80,14 @@ class EuclidResult < ApplicationRecord
     end
   end
 
-  private_class_method :generate_result, :euclid_enumerator, :euclid_algorithm
+  def self.response_to_json(res_steps, gcd, lcm)
+    ActiveSupport::JSON.encode({
+      steps: res_steps,
+      gcd: gcd,
+      lcm: lcm
+    })
+  end
+
+  private_class_method :generate_result, :euclid_enumerator,
+                       :euclid_algorithm, :response_to_json
 end
