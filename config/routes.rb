@@ -7,4 +7,5 @@ Rails.application.routes.draw do
 
   root "session#login"
   post 'authorize', to: "session#authorize"
+  get 'logout', to: "session#logout"
 end

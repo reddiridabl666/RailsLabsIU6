@@ -3,6 +3,7 @@
 # main controller
 class EuclidController < ApplicationController
   before_action :validate_input, only: :result
+  before_action :require_login
 
   def index; end
 
@@ -40,12 +41,18 @@ class EuclidController < ApplicationController
 
   def validate_input
     unless valid(params[:input_1]) && valid(params[:input_2])
-      redirect_to root_path, alert: "You should enter a natural number in each field"
+      redirect_to input_path, alert: "You should enter a natural number in each field"
     end
   end
 
   def valid(input)
     return false if input.to_i == 0
     /\A\d+\Z/.match?(input)
+  end
+
+  def require_login
+    if session[:current_user_id].nil?
+      redirect_to root_path
+    end
   end
 end
