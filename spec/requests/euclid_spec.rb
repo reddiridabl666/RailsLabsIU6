@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Euclids", type: :request do
   describe "GET /result" do
     it "returns http success on valid query" do
-      get "/euclid/result/?input_1=5&input_2=1"
+      get "/euclid/result/?input_1=5&input2=1"
 
       expect(response).to have_http_status(:success)
       expect(response).to render_template("result")
@@ -13,14 +13,14 @@ RSpec.describe "Euclids", type: :request do
       expected_gcd = 12
       expected_lcm = 144
 
-      get "/euclid/result/?input_1=36&input_2=48"
+      get "/euclid/result/?input_1=36&input2=48"
 
       expect(assigns(:gcd)).to equal(expected_gcd)
       expect(assigns(:lcm)).to equal(expected_lcm)
     end
 
     it "redirects on invalid query" do
-      get "/euclid/result/?input_1='-1'&input_2='14'"
+      get "/euclid/result/?input_1='-1'&input2='14'"
 
       expect(response).to have_http_status(:redirect)
       expect(response).to redirect_to('/')
