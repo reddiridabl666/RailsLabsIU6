@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "application", type: :system do
-  before do
-    driven_by(:selenium_chrome_headless)
-  end
-
   it "returns valid values after registration and login" do
     visit root_path
     click_link 'Sign Up'
