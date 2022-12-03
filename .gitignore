@@ -35,6 +35,8 @@ storage
 /config/local_env.yml
 
 *pdf
+*odt
+*tar.gz
 Gemfile.lock
 
 .idea
