@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "user input", type: :system do
-  before do
-    driven_by(:selenium_chrome_headless)
-  end
-
   it "returns valid answers" do
     visit root_path
     fill_in "input_1", with: 24
