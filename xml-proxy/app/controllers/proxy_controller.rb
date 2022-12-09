@@ -3,8 +3,7 @@ require 'open-uri'
 class ProxyController < ApplicationController
   before_action :get_params, only: :output
 
-  def input
-  end
+  def input; end
 
   def output
     xml_response = URI.open(url)
@@ -32,18 +31,14 @@ class ProxyController < ApplicationController
 
   def xslt_transform(data)
     doc = Nokogiri::XML(data)
-    xslt = Nokogiri::XSLT(File.read(xslt_path))
+    xslt = Nokogiri::XSLT(File.read("#{Rails.root}/public/transform.xslt"))
     xslt.transform(doc)
-  end
-
-  def xslt_path
-    "#{Rails.root}/public/transform.xslt"
   end
 
   def add_xslt_ref(data)
     doc = Nokogiri::XML(data)
-    xslt = Nokogiri::XML::ProcessingInstruction.new(doc, 'xml-stylesheet', '
-                                                    type="text/xsl" href="' + xslt_path + '"')
+    xslt = Nokogiri::XML::ProcessingInstruction.new(doc, 'xml-stylesheet',
+                                                    'type="text/xsl" href="/browser.xslt"')
     doc.root.add_previous_sibling(xslt)
     doc
   end

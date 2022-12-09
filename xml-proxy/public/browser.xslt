@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-  <xsl:template match="/">
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>Rails Labs</title>
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <link href=<xsl:value-of select="style"/> rel="stylesheet">
-      </head>
+<xsl:template match="/hash/results">
+  <html>
+    <head>
+      <title>Rails Labs</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1"/>
+      <link href="/bootstrap.min.css" rel="stylesheet"/>
+    </head>
 
-      <body class="container-fluid">
-        <div class="row bg-primary">
-          <h1 class="col-6 mt-3 text-light">Euclid's Algorithm</h1>
-        </div>
-        <div class="row">
+    <body class="container-fluid">
+      <div class="row bg-primary">
+        <h1 class="col-6 mt-3 text-light">Euclid's Algorithm</h1>
+      </div>
+      <div class="row">
           <div id="result">
             <table class="table">
               <tr>
@@ -49,8 +48,27 @@
               </tr>
             </table>
           </div>
-        </div>
-      </body>
-    </html>
-  </xsl:template>
+      </div>
+      <a href="/" class="link-primary"> Go back </a>
+    </body>
+  </html>
+</xsl:template>
+
+<xsl:template match="/hash/error-msg">
+  <html>
+    <head>
+      <title>Rails Labs</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1"/>
+      <link href="/bootstrap.min.css" rel="stylesheet"/>
+    </head>
+
+    <body class="container-fluid">
+      <div class="row bg-primary">
+        <h1 class="col-6 mt-3 text-light">Euclid's Algorithm</h1>
+      </div>
+      <h3 class="text-danger"><xsl:value-of select="."/></h3>
+      <a href="/" class="link-primary"> Go back </a>
+    </body>
+  </html>
+</xsl:template>
 </xsl:stylesheet>

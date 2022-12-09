@@ -25,15 +25,19 @@ class EuclidController < ApplicationController
     @results, @gcd, @lcm = euclid_algorithm
 
     {
-      first: @first_num,
-      second: @second_num,
-      steps: @results.map do |res, index|
-        {
-          index: index,
-          first: res[0],
-          second: res[1]
-        }
-      end
+      results: {
+        first: @first_num,
+        second: @second_num,
+        steps: @results.map do |res, index|
+          {
+            index: index + 1,
+            first: res[0],
+            second: res[1]
+          }
+        end,
+        gcd: @gcd,
+        lcm: @lcm
+      }
     }
   end
 
