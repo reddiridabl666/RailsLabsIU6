@@ -7,18 +7,18 @@ RSpec.describe "application", type: :system do
     expect(page).to have_current_path new_user_path
 
     fill_in 'Username', with: 'test_user'
-    fill_in 'Password', with: 'test_pwd'
-    fill_in 'Password confirmation', with: 'test_pwd'
+    fill_in 'Password', with: 'test_pass'
+    fill_in 'Password confirmation', with: 'test_pass'
     click_button 'Create User'
     expect(page).to have_current_path root_path
 
     fill_in 'Username', with: 'test_user'
-    fill_in 'Password', with: 'test_pwd'
+    fill_in 'Password', with: 'test_pass'
     click_button 'Login'
     expect(page).to have_current_path input_path
 
-    fill_in "input_1", with: 24
-    fill_in "input_2", with: 36
+    fill_in "input1", with: 24
+    fill_in "input2", with: 36
     click_button "Calculate greatest common denominator"
 
     expect(find('#gcd')).to have_content '12'
