@@ -1,25 +1,31 @@
+# frozen_string_literal: true
+
 require 'open-uri'
 
+# Controller receiving xml from api and converting it to html
 class ProxyController < ApplicationController
-  before_action :get_params, only: :output
+  before_action :parse_params, only: :output
 
   def input; end
 
   def output
+    # rubocop:disable Security/Open
     xml_response = URI.open(url)
+    # rubocop:enable Security/Open
 
-    if @side == 'raw'
-      render xml: xml_response
-    elsif @side == 'server'
+    case @side
+    when 'client'
+      render xml: add_xslt_ref(xml_response).to_xml
+    when 'server'
       @result = xslt_transform(xml_response).to_html
     else
-      render xml: add_xslt_ref(xml_response).to_xml
+      render xml: xml_response
     end
   end
 
   private
 
-  def get_params
+  def parse_params
     @first = params[:input1]
     @second = params[:input2]
     @side = params[:side]

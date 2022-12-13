@@ -7,7 +7,14 @@ class EuclidController < ApplicationController
   # def index; end
 
   def result
-    data = get_result
+    return { error_msg: 'You should enter a natural number in both inputs' } unless @input_valid
+
+    @first_num = params[:input1].to_i
+    @second_num = params[:input2].to_i
+
+    @results, @gcd, @lcm = euclid_algorithm
+
+    data = generate_xml_result
 
     respond_to do |format|
       format.xml { render xml: data.to_xml }
@@ -16,27 +23,14 @@ class EuclidController < ApplicationController
 
   private
 
-  def get_result
-    return { error_msg: 'You should enter a natural number in both inputs' } unless @input_valid
-
-    @first_num = params[:input1].to_i
-    @second_num = params[:input2].to_i
-
-    @results, @gcd, @lcm = euclid_algorithm
-
+  def generate_xml_result
     {
       results: {
-        first: @first_num,
-        second: @second_num,
+        first: @first_num, second: @second_num,
         steps: @results.map do |res, index|
-          {
-            index: index + 1,
-            first: res[0],
-            second: res[1]
-          }
+          { index: index + 1, first: res[0], second: res[1] }
         end,
-        gcd: @gcd,
-        lcm: @lcm
+        gcd: @gcd, lcm: @lcm
       }
     }
   end
@@ -66,9 +60,7 @@ class EuclidController < ApplicationController
 
   def validate_input
     @input_valid = true
-    unless valid(params[:input1]) && valid(params[:input2])
-      @input_valid = false
-    end
+    @input_valid = false unless valid(params[:input1]) && valid(params[:input2])
   end
 
   def valid(input)
