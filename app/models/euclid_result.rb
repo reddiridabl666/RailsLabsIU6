@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# results of euclid algorithm
 class EuclidResult < ApplicationRecord
   validates :first, uniqueness: { scope: :second }
   validates :first, :second, :gcd, :lcm, presence: true
@@ -6,33 +9,33 @@ class EuclidResult < ApplicationRecord
   has_many :euclid_steps
 
   def self.get(first, second)
-    result = find_by(first: first, second: second)
-    result = find_by(first: second, second: first) if result.blank?
+    result = find_by(first:, second:)
+    result = find_by(first:, second:) if result.blank?
     return [result.euclid_steps.all.order(:step), result.gcd, result.lcm] unless result.blank?
 
     generate_result(first, second)
   end
 
   def self.get_json(first, second)
-    response_to_json(*self.get(first, second))
+    response_to_json(*get(first, second))
   end
 
   def to_xml
     Nokogiri::XML::Builder.new do |xml|
-      xml.result {
+      xml.result do
         xml.id id
         xml.gcd gcd
         xml.lcm lcm
-        xml.steps {
+        xml.steps do
           euclid_steps.all.each do |step|
-            xml.step {
+            xml.step do
               xml.id step.id
               xml.first step.first
               xml.second step.second
-            }
+            end
           end
-        }
-      }
+        end
+      end
     end.doc.root.to_xml
   end
 
@@ -46,7 +49,7 @@ class EuclidResult < ApplicationRecord
   def self.generate_result(first, second)
     steps, gcd, lcm = euclid_algorithm(first, second)
 
-    res = self.create(first: first, second: second, gcd: gcd, lcm: lcm)
+    res = create(first:, second:, gcd:, lcm:)
 
     step_objects = steps.reduce([]) do |sum, step|
       step_res, index = step
@@ -60,7 +63,7 @@ class EuclidResult < ApplicationRecord
   def self.euclid_algorithm(first, second)
     results = euclid_enumerator(first, second)
               .each_with_index
-              .take_while {|res, _| [res[0], res[1]].min != 0 }
+              .take_while { |res, _| [res[0], res[1]].min != 0 }
 
     gcd = results.blank? ? first : results[-1][0].max
     lcm = first * second / gcd
@@ -81,11 +84,11 @@ class EuclidResult < ApplicationRecord
   end
 
   def self.response_to_json(res_steps, gcd, lcm)
-    ActiveSupport::JSON.encode({
-      steps: res_steps,
-      gcd: gcd,
-      lcm: lcm
-    })
+    ActiveSupport::JSON.encode(
+      { steps: res_steps,
+        gcd:,
+        lcm: }
+    )
   end
 
   private_class_method :generate_result, :euclid_enumerator,
