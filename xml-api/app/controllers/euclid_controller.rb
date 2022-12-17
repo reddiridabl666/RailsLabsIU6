@@ -4,8 +4,6 @@
 class EuclidController < ApplicationController
   before_action :validate_input, only: :result
 
-  # def index; end
-
   def result
     return { error_msg: 'You should enter a natural number in both inputs' } unless @input_valid
 
@@ -18,6 +16,7 @@ class EuclidController < ApplicationController
 
     respond_to do |format|
       format.xml { render xml: data.to_xml }
+      format.rss { render xml: data.to_xml }
     end
   end
 
